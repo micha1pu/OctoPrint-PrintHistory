@@ -55,8 +55,11 @@ class CuraParser(BaseParser):
         for _ in range(10):
             line = gcode_file.readline()
             if re.search(r"Cura_SteamEngine", line):
-                detected = True
-                self.version = VERSION_REGEX.search(line).group(0)
+                try:
+                    self.version = VERSION_REGEX.search(line).group(0)
+                    detected = True
+                except:
+                    pass
         gcode_file.seek(0)
         return detected
 
